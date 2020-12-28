@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Cloud_TVSWebModelStoreContainer" CdmEntityContainer="Cloud_TVSWebEntities">
+    <EntitySetMapping Name="Questions">
+      <EntityTypeMapping TypeName="Cloud_TVSWebModel.Question">
+        <MappingFragment StoreEntitySet="Questions">
+          <ScalarProperty Name="qsId" ColumnName="qsId" />
+          <ScalarProperty Name="qsTitle" ColumnName="qsTitle" />
+          <ScalarProperty Name="qsContent" ColumnName="qsContent" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

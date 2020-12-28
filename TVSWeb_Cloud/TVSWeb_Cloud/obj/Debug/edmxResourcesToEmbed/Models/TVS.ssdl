@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Cloud_TVSWebModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Questions">
+    <Key>
+      <PropertyRef Name="qsId" />
+    </Key>
+    <Property Name="qsId" Type="int" Nullable="false" />
+    <Property Name="qsTitle" Type="nvarchar" MaxLength="50" />
+    <Property Name="qsContent" Type="nvarchar" MaxLength="500" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="Cloud_TVSWebModelStoreContainer">
+    <EntitySet Name="Questions" EntityType="Self.Questions" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

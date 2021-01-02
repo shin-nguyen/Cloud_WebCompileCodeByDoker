@@ -35,10 +35,10 @@
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td>@item.qsId</td>
-                                <td>@item.qsTitle</td>
-                                <td>@item.qsContent</td>
-                                <td><a class="btn btn-info btn-sm" href="@Url.Action("CodeScreen", new { id=item.qsId })">Choose it</a></td>
+                                <td>@item.QuestionID</td>
+                                <td>@item.QuestionTitle</td>
+                                <td>@item.QuestionContent</td>
+                                <td><a class="btn btn-info btn-sm" href="@Url.Action("CodeScreen", new { questionId=item.QuestionID })">Choose it</a></td>
                             </tr>
                         }
 

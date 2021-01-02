@@ -1,57 +1,55 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
+using System.Web.Http;
 using System.Web.Mvc;
 using TVSWeb_Cloud.Models;
+using System.Data.Entity;
+using TVSWeb_Cloud.Models.dtos;
 
 namespace TVSWeb_Cloud.Controllers
 {
     public class HomeController : Controller
     {
-        Cloud_TVSWebEntities db = new Cloud_TVSWebEntities();
+        private TVSContext _context;
+
+        public HomeController()
+        {
+            _context = new TVSContext();
+            CommandPrompt.ExecuteCommand("docker run --rm -it -d -v " + ConfigurationDocker.StoragePathInHost + ":" + ConfigurationDocker.StoragePathInContainer + " --name " + ConfigurationDocker.MonoContainerName  + " mono");
+            CommandPrompt.ExecuteCommand("docker run --rm -it -d -v " + ConfigurationDocker.StoragePathInHost + ":" + ConfigurationDocker.StoragePathInContainer + " --name " + ConfigurationDocker.OpenjdkContainerName + " openjdk");
+
+
+        }
         public ActionResult Index()
         {
             return View();
         }
         public ActionResult Choosejava()
         {
-            List<Question> qs = db.Questions.OrderBy(x => x.qsId).ToList();
-            Session["java"] = 1;
-            return View(qs);
+            List<Question> questions = _context.Questions.Where(q => q.Type.Name == "java").ToList();
+            return View(questions);
         }
         public ActionResult Choosecsharp()
         {
-            List<Question> qs = db.Questions.OrderBy(x => x.qsId).ToList();
-            Session["csharp"] = 1;
-            return View(qs);
+            List<Question> questions = _context.Questions.Where(q => q.Type.Name == "c#").ToList();
+            return View(questions);
         }
         public ActionResult Contact()
         {
             return View();
         }
 
-        public ActionResult CodeScreen(int id)
+        public ActionResult CodeScreen(int questionID)
         {
-            var qs = new List<Question>();
-            Question question = new Question();
-            foreach( Question q in qs)
-            {
-                if(q.qsId==id)
-                {
-                    question = q;
-                    break;
-                }    
-                if(question==null)
-                {
-                    return HttpNotFound();
-                }
-            }    
-            if (Session["java"] == null && Session["csharp"]==null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            return View(question);
+            var question = this._context.Questions.Include(q => q.Type).SingleOrDefault(q => q.QuestionID == questionID);
+
+            if (question == null)
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+
+            return View(new QuestionDto(question));
         }
     }
 }

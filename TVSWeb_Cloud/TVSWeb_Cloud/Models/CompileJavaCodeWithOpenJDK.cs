@@ -22,13 +22,13 @@ namespace TVSWeb_Cloud.Models
             return output;
         }
 
-        public string Run()
+        public string Run(string parameters)
         {
             var path = this._filePathInContainer.Substring(1, this._filePathInContainer.Length - 1).Split('/');
             var classPath = "/" + path[0];
             var fileName = path[1].Substring(0, path[1].Length - 5);
 
-            string command = "docker exec " + this._containerOpenjdkName + " java -classpath " + classPath + " " + fileName;
+            string command = "docker exec " + this._containerOpenjdkName + " java -classpath " + classPath + " " + fileName + " " + parameters;
             string output = CommandPrompt.ExecuteCommand(command);
 
             return output;

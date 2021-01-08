@@ -22,11 +22,11 @@ namespace TVSWeb_Cloud.Models
             return output;
         }
 
-        public string Run()
+        public string Run(string parameters)
         {
             var newFilePath = this._filePathInContainer.Substring(0, this._filePathInContainer.Length - 2) + "exe";
 
-            string command = "docker exec " + this._containerMonoName + " mono " + newFilePath;
+            string command = "docker exec " + this._containerMonoName + " mono " + newFilePath + " " + parameters;
             string output = CommandPrompt.ExecuteCommand(command);
 
             return output;

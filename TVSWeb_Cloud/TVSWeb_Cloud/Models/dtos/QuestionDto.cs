@@ -23,7 +23,7 @@ namespace TVSWeb_Cloud.Models.dtos
         public int QuestionID { get; set; }
         public string QuestionTitle { get; set; }
         public string QuestionContent { get; set; }
-
+        public string Parameters { get; set; }
         public int TypeID { get; set; }
         public string TypeName { get; set; }
     }

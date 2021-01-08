@@ -13,7 +13,7 @@ namespace TVSWeb_Cloud.Controllers.api
     public class CodeExecutionController : ApiController
     {
         [HttpGet]
-        public string RunCSharpCode(string namespaces, string codeContent) {
+        public string RunCSharpCode(string namespaces, string codeContent, string parameters) {
 
             string className = "a" + string.Format(@"{0}", Math.Abs(Guid.NewGuid().GetHashCode()));
             string fileName = className + ".cs";
@@ -38,7 +38,7 @@ namespace TVSWeb_Cloud.Controllers.api
             if (outputCompile != "")
                 return outputCompile;
 
-            var outputRun = compile.Run();
+            var outputRun = compile.Run(parameters);
 
             FileCode.Delete(fileName, ConfigurationDocker.StoragePathInHost);
 
@@ -49,7 +49,7 @@ namespace TVSWeb_Cloud.Controllers.api
         }
 
         [HttpGet]
-        public string RunJavaCode(string namespaces, string codeContent)
+        public string RunJavaCode(string namespaces, string codeContent, string parameters)
         {
             string className = "a" + string.Format(@"{0}", Math.Abs(Guid.NewGuid().GetHashCode()));
             string fileName = className + ".java";
@@ -73,7 +73,7 @@ namespace TVSWeb_Cloud.Controllers.api
             if (outputCompile != "")
                 return outputCompile;
 
-            var outputRun = compile.Run();
+            var outputRun = compile.Run(parameters);
 
             FileCode.Delete(fileName, ConfigurationDocker.StoragePathInHost);
 

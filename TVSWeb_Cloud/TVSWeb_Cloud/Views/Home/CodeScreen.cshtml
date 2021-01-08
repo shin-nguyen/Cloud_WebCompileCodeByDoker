@@ -53,9 +53,9 @@
                         <div class="fields">
                             <div class="field">
                                 <label for="inputCode" style="text-align: center;">Input</label>
-                                <textarea name="inputNameSpace" id="input-namespace" rows="4"></textarea>
+                                <textarea name="inputNameSpace" id="input-namespace" rows="2"></textarea>
                                 <input type="text" id="input-className" name="inputClassName" disabled/>
-                                <textarea name="inputCode" id="input-code" rows="20" style="white-space: pre-wrap; white-space: pre-line;">public static void Main(String[] agrs)&#13;&#10;{&#13;&#10;}</textarea>
+                                <textarea name="inputCode" id="input-code" rows="16" style="white-space: pre-wrap; white-space: pre-line;">public static void Main(String[] agrs)&#13;&#10;{&#13;&#10;}</textarea>
                                 <input type="text" disabled value="}" />
                             </div>
                             <div class="field">
@@ -134,6 +134,7 @@
 
                 var inputNamespace = encodeURIComponent($("#input-namespace").val());
                 var inputCode = encodeURIComponent($("#input-code").val());
+                var inputVariable = encodeURIComponent($("#input-variable").val());
 
                 //inputNamespace = JSON.stringify(inputNamespace);
                 //inputCode = JSON.stringify(inputCode);
@@ -142,7 +143,7 @@
 
                 if (model.TypeName == 'c#') {
                     $.ajax({
-                        url: '/api/CodeExecution/RunCSharpCode?nameSpaces=' + inputNamespace + '&codeContent=' + inputCode,
+                        url: '/api/CodeExecution/RunCSharpCode?nameSpaces=' + inputNamespace + '&codeContent=' + inputCode + "&parameters=" + inputVariable,
                         method: "get",
                         success: function (response) {
                             $("#result").val(response);
@@ -150,7 +151,7 @@
                     });
                 } else if (model.TypeName == 'java') {
                     $.ajax({
-                        url: '/api/CodeExecution/RunJavaCode?nameSpaces=' + inputNamespace + '&codeContent=' + inputCode,
+                        url: '/api/CodeExecution/RunJavaCode?nameSpaces=' + inputNamespace + '&codeContent=' + inputCode + "&parameters=" + inputVariable,
                         method: "get",
                         success: function (response) {
                             $("#result").val(response);
